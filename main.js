@@ -25,6 +25,31 @@ app.querySelector('#opt3').addEventListener('change',onInputChanged,false);
 app.querySelector('#opt4').addEventListener('change',onInputChanged,false);
 
 // ---------------------------------
-// 
+// イベントハンドラ
 // ---------------------------------
+
+// ページの読み込みが完了したとき呼び出されるイベントハンドラ
+function onPageLoad(event) {
+  // 挙式に2ヶ月後の日付を設定
+  // DVD仕上がり予定日に、挙式日の1週間前の日付を設定
+  // DVD仕上がり予定日に翌日以降しか入力できないようにする
+  // フォームの表示を更新する
+  updateForm();
+}
+
+// 入力内容を変更したとき呼び出されるイベントハンドラ
+function onInputChanged(event) {
+  // フォームの表示を更新する
+  updateForm();
+}
+
+// ---------------------------------
+// 関数
+// ---------------------------------
+
+// 金額の表示を更新する関数
+function updateForm() {
+  // 金額を再計算
+  // 表示を更新
+}
 
