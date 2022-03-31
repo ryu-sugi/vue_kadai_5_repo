@@ -62,10 +62,10 @@ function onPageLoad(event) {
   var dt = new Date();
   // 挙式日に2ヶ月後の日付を設定
   dt.setMonth(dt.getMonth() + 2);
-  wedding_date.value = FormDate(dt);
+  wedding_date.value = formatDate(dt);
   // DVD仕上がり予定日に、挙式日の1週間前を設定
   dt.setDate(dt.getDate() - 7);
-  delivery_date.value = FormDate(dt);
+  delivery_date.value = formatDate(dt);
   // DVD仕上がり予定日に翌日以降しか入力できないようにする
   delivery_date.setAttribute('min',tommorow());
   // フォームの表示を更新する
@@ -83,7 +83,7 @@ function onInputChanged(event) {
 // ---------------------------------
 
 // 日付をYYY-MM-DDの書式で返すメソッド
-function formDate(dt) {
+function formatDate(dt) {
   var y = dt.getFullYear();
   var m = ('00' + (dt.getMonth()+1)).slice(-2);
   var d = ('00' + dt.getDate()).slice(-2);
@@ -94,7 +94,7 @@ function formDate(dt) {
 function tommorow() {
   var dt = new Date();
   dt.setDate(dt.getDate() + 1);
-  return formDate(dt);
+  return formatDate(dt);
 }
 
 // 金額の表示を更新する関数
@@ -103,3 +103,35 @@ function updateForm() {
   // 表示を更新
 }
 
+// 税抜き金額を税込金額に変換する関数
+function incTax(untaxed) {
+  return Math.floor(untaxed * (1 + taxRate));
+}
+
+// 数値を通過書式「#,###,###」に変換する関数
+function number_format(val) {
+  return val.toLocalString();
+}
+
+// 再計算した基本料金(税込)を返す関数
+function taxedBasePrice() {
+  // 基本料金(税込)を返す
+}
+
+// 再計算したオプション料金(税込)を返す関数
+function taxedOptPrice() {
+  // オプション料金を返す
+}
+
+// 金額の表示を更新する関数
+function updateForm() {
+  // フォームコントロールを取得
+  var sum_base = app.querySelector('#sum_base'); // 基本料金(税込)
+  var sum_opt = app.querySelector('#sum_opt'); // オプション料金(税込)
+  var sum_total  = app.querySelector('#sum_total'); //合計(税込)
+
+  // 表示を更新
+  sum_base.value = number_format(basePrice); // 基本料金(税込)
+  sum_opt.value = number_format(optPrice); // オプション料金(税込)
+  sum_total.value = number_format(totalPrice); // 合計(税込)
+}
